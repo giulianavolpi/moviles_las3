@@ -21,13 +21,7 @@ class HomeScreen extends StatelessWidget {
                 child: Container(
                   width: double.infinity,
                   padding: const EdgeInsets.fromLTRB(16, 48, 16, 24),
-                  decoration: const BoxDecoration(
-                    color: AppTheme.deepGreen,
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(24),
-                      bottomRight: Radius.circular(24),
-                    ),
-                  ),
+                  color: AppTheme.background,
                   child: Column(
                     children: [
                       Container(
@@ -66,16 +60,15 @@ class HomeScreen extends StatelessWidget {
                       Text(
                         'Your Campus,\nYour Closet.',
                         textAlign: TextAlign.center,
-                        style:
-                            Theme.of(
-                              context,
-                            ).textTheme.headlineLarge?.copyWith(height: 1.2) ??
-                            const TextStyle(
-                              fontSize: 28,
-                              fontWeight: FontWeight.w800,
-                              color: Colors.white,
-                              height: 1.2,
-                            ),
+                        style: (Theme.of(context).textTheme.headlineLarge ??
+                                const TextStyle(
+                                  fontSize: 28,
+                                  fontWeight: FontWeight.w800,
+                                ))
+                            .copyWith(
+                          height: 1.2,
+                          color: AppTheme.foreground,
+                        ),
                       ),
                       const SizedBox(height: 12),
                       Text(
@@ -83,7 +76,7 @@ class HomeScreen extends StatelessWidget {
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 13,
-                          color: Colors.white.withValues(alpha: 0.9),
+                          color: AppTheme.foreground,
                           height: 1.4,
                         ),
                       ),
@@ -93,33 +86,58 @@ class HomeScreen extends StatelessWidget {
                         child: FilledButton.icon(
                           onPressed: () => context.go('/browse'),
                           icon: const Icon(
-                            Icons.arrow_forward_rounded,
+                            Icons.arrow_back_rounded,
                             size: 20,
+                            color: AppTheme.foreground,
                           ),
                           label: const Text('Browse Items'),
                           style: FilledButton.styleFrom(
                             backgroundColor: AppTheme.sage,
-                            foregroundColor: AppTheme.sageDark,
-                            padding: const EdgeInsets.symmetric(vertical: 14),
+                            foregroundColor: AppTheme.foreground,
+                            padding: const EdgeInsets.symmetric(vertical: 16),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(999),
+                            ),
+                            elevation: 0,
                           ),
                         ),
                       ),
-                      const SizedBox(height: 10),
+                      const SizedBox(height: 12),
                       SizedBox(
                         width: double.infinity,
                         child: OutlinedButton(
                           onPressed: () => context.go('/sell'),
+                          style: OutlinedButton.styleFrom(
+                            foregroundColor: AppTheme.deepGreen,
+                            side: BorderSide(
+                              color: AppTheme.gray.withValues(alpha: 0.6),
+                              width: 1,
+                            ),
+                            padding: const EdgeInsets.symmetric(vertical: 16),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(999),
+                            ),
+                          ),
                           child: const Text('Start Selling'),
                         ),
                       ),
-                      const SizedBox(height: 10),
+                      const SizedBox(height: 12),
                       Row(
                         children: [
                           Expanded(
                             child: OutlinedButton(
                               onPressed: () => context.go('/donate'),
                               style: OutlinedButton.styleFrom(
-                                foregroundColor: Colors.white,
+                                foregroundColor: AppTheme.deepGreen,
+                                side: BorderSide(
+                                  color: AppTheme.gray.withValues(alpha: 0.6),
+                                  width: 1,
+                                ),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 14),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(999),
+                                ),
                               ),
                               child: const Text('Donate'),
                             ),
@@ -129,7 +147,16 @@ class HomeScreen extends StatelessWidget {
                             child: OutlinedButton(
                               onPressed: () => context.go('/swap'),
                               style: OutlinedButton.styleFrom(
-                                foregroundColor: Colors.white,
+                                foregroundColor: AppTheme.deepGreen,
+                                side: BorderSide(
+                                  color: AppTheme.gray.withValues(alpha: 0.6),
+                                  width: 1,
+                                ),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 14),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(999),
+                                ),
                               ),
                               child: const Text('Swap'),
                             ),
