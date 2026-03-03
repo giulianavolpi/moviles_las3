@@ -37,9 +37,9 @@
     --secondary: 0 0% 50%;
     --secondary-foreground: 147 15% 55%;
 
-    /* Accent sections */
-    --accent: 62 25% 61%;         /* Dry Sage */
-    --accent-foreground: 0 0% 17%;
+    /* sage sections */
+    --sage: 62 25% 61%;         /* Dry Sage */
+    --sage-foreground: 0 0% 17%;
 
     /* CTA */
     --cta: 41 96% 78%;            /* Soft Peach */

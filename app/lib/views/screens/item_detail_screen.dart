@@ -13,14 +13,6 @@ class ItemDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.chevron_left_rounded),
-          onPressed: () => context.go('/browse'),
-        ),
-        backgroundColor: AppTheme.deepGreen,
-        foregroundColor: Colors.white,
-      ),
       body: Consumer<ItemDetailViewModel>(
         builder: (context, vm, _) {
           final item = vm.item;
@@ -28,29 +20,39 @@ class ItemDetailScreen extends StatelessWidget {
             return const Center(child: CircularProgressIndicator());
           }
           return SingleChildScrollView(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.fromLTRB(16, 12, 16, 16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                GestureDetector(
-                  onTap: () => context.go('/browse'),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.chevron_left_rounded,
-                        size: 18,
-                        color: AppTheme.mutedForeground,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    GestureDetector(
+                      onTap: () => context.go('/browse'),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.chevron_left_rounded,
+                            size: 18,
+                            color: AppTheme.mutedForeground,
+                          ),
+                          const SizedBox(width: 4),
+                          Text(
+                            'Back to Browse',
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: AppTheme.mutedForeground,
+                            ),
+                          ),
+                        ],
                       ),
-                      const SizedBox(width: 4),
-                      Text(
-                        'Back to Browse',
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: AppTheme.mutedForeground,
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                    Image.asset(
+                      'assets/images/uni_market_logo.png',
+                      height: 28,
+                      fit: BoxFit.contain,
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 16),
                 Row(
@@ -90,7 +92,7 @@ class _Gallery extends StatelessWidget {
     return Column(
       children: [
         ClipRRect(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(24),
           child: AspectRatio(
             aspectRatio: 4 / 5,
             child: CachedNetworkImage(
@@ -109,24 +111,24 @@ class _Gallery extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: List.generate(item.images.length, (i) {
             final active = vm.activeImageIndex == i;
             return GestureDetector(
               onTap: () => vm.setActiveImage(i),
               child: Container(
                 margin: const EdgeInsets.only(right: 8),
-                width: 56,
-                height: 56,
+                width: 64,
+                height: 64,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(12),
                   border: Border.all(
-                    color: active ? AppTheme.foreground : Colors.transparent,
-                    width: 2,
+                    color: active ? AppTheme.deepGreen : Colors.transparent,
+                    width: 3,
                   ),
                 ),
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(6),
+                  borderRadius: BorderRadius.circular(10),
                   child: CachedNetworkImage(
                     imageUrl: item.images[i],
                     fit: BoxFit.cover,
@@ -180,23 +182,30 @@ class _InfoSection extends StatelessWidget {
             Expanded(
               child: Text(
                 item.name,
-                style:
-                    Theme.of(context).textTheme.titleLarge ??
-                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style: Theme.of(context).textTheme.titleLarge ??
+                    const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w700,
+                    ),
               ),
             ),
             IconButton(
               onPressed: vm.toggleSaved,
               icon: Icon(
                 vm.saved
-                    ? Icons.favorite_rounded
-                    : Icons.favorite_border_rounded,
+                    ? Icons.favorite
+                    : Icons.favorite_border_outlined,
                 color: vm.saved ? Colors.red : AppTheme.mutedForeground,
+                size: 22,
               ),
             ),
             IconButton(
               onPressed: () {},
-              icon: Icon(Icons.share_rounded, color: AppTheme.mutedForeground),
+              icon: Icon(
+                Icons.ios_share_outlined,
+                color: AppTheme.mutedForeground,
+                size: 22,
+              ),
             ),
           ],
         ),
@@ -205,7 +214,7 @@ class _InfoSection extends StatelessWidget {
           style: TextStyle(
             fontSize: 28,
             fontWeight: FontWeight.w800,
-            color: AppTheme.accent,
+            color: AppTheme.sage,
           ),
         ),
         const SizedBox(height: 8),
@@ -214,25 +223,41 @@ class _InfoSection extends StatelessWidget {
           runSpacing: 8,
           children: [
             Chip(
-              label: Text(item.condition),
+              label: Text(
+                item.condition,
+                style: const TextStyle(fontWeight: FontWeight.w600),
+              ),
               backgroundColor: AppTheme.cardBg,
               side: BorderSide(color: AppTheme.foreground),
+              shape: const StadiumBorder(),
             ),
             Chip(
-              label: Text(exchangeLabel),
-              backgroundColor: AppTheme.sage,
-              labelStyle: TextStyle(color: AppTheme.sageDark, fontSize: 12),
+              label: Text(
+                exchangeLabel,
+                style: const TextStyle(fontWeight: FontWeight.w600),
+              ),
+              backgroundColor: AppTheme.sage.withValues(alpha: 0.35),
+              side: BorderSide(color: AppTheme.sage.withValues(alpha: 0.6)),
+              labelStyle: TextStyle(color: AppTheme.foreground, fontSize: 12),
+              shape: const StadiumBorder(),
             ),
           ],
         ),
         const SizedBox(height: 16),
-        Text(
-          'AI-Generated Tags',
-          style: TextStyle(
-            fontSize: 11,
-            fontWeight: FontWeight.w600,
-            color: AppTheme.mutedForeground,
-          ),
+        Row(
+          children: [
+            Icon(Icons.bolt_outlined, size: 16, color: AppTheme.mutedForeground),
+            const SizedBox(width: 6),
+            Text(
+              'AI-GENERATED TAGS',
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.w700,
+                color: AppTheme.mutedForeground,
+                letterSpacing: 0.6,
+              ),
+            ),
+          ],
         ),
         const SizedBox(height: 6),
         Wrap(
@@ -240,32 +265,52 @@ class _InfoSection extends StatelessWidget {
           runSpacing: 6,
           children: [
             Chip(
-              label: Text('Size ${item.size}'),
+              label: Text(
+                'Size ${item.size}',
+                style: const TextStyle(fontWeight: FontWeight.w600),
+              ),
               backgroundColor: AppTheme.cardBg,
               side: BorderSide(color: AppTheme.foreground),
+              shape: const StadiumBorder(),
             ),
             Chip(
-              label: Text(item.color),
+              label: Text(
+                item.color,
+                style: const TextStyle(fontWeight: FontWeight.w600),
+              ),
               backgroundColor: AppTheme.cardBg,
               side: BorderSide(color: AppTheme.foreground),
+              shape: const StadiumBorder(),
             ),
             Chip(
-              label: Text(item.category),
+              label: Text(
+                item.category,
+                style: const TextStyle(fontWeight: FontWeight.w600),
+              ),
               backgroundColor: AppTheme.cardBg,
               side: BorderSide(color: AppTheme.foreground),
+              shape: const StadiumBorder(),
             ),
             Chip(
-              label: Text(item.style),
+              label: Text(
+                item.style,
+                style: const TextStyle(fontWeight: FontWeight.w600),
+              ),
               backgroundColor: AppTheme.cardBg,
               side: BorderSide(color: AppTheme.foreground),
+              shape: const StadiumBorder(),
             ),
             ...item.tags
                 .take(3)
                 .map(
                   (t) => Chip(
-                    label: Text(t),
+                    label: Text(
+                      t,
+                      style: const TextStyle(fontWeight: FontWeight.w600),
+                    ),
                     backgroundColor: AppTheme.cardBg,
                     side: BorderSide(color: AppTheme.foreground),
+                    shape: const StadiumBorder(),
                   ),
                 ),
           ],
@@ -297,7 +342,7 @@ class _InfoSection extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
-                          color: AppTheme.foreground,
+                          color: AppTheme.black,
                         ),
                       ),
                     ],
@@ -307,7 +352,7 @@ class _InfoSection extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
-                      color: scoreColor,
+                      color: AppTheme.sage,
                     ),
                   ),
                 ],
@@ -315,8 +360,9 @@ class _InfoSection extends StatelessWidget {
               const SizedBox(height: 8),
               LinearProgressIndicator(
                 value: item.aiScore / 100,
-                backgroundColor: AppTheme.muted,
-                valueColor: AlwaysStoppedAnimation<Color>(scoreColor),
+                backgroundColor: AppTheme.gray,
+                valueColor:
+                    const AlwaysStoppedAnimation<Color>(AppTheme.deepGreen),
                 minHeight: 8,
               ),
               const SizedBox(height: 8),
@@ -351,21 +397,21 @@ class _InfoSection extends StatelessWidget {
         Row(
           children: [
             Expanded(
-              child: FilledButton.icon(
+              child: OutlinedButton.icon(
                 onPressed: vm.messageSent ? null : vm.sendMessage,
                 icon: Icon(
-                  vm.messageSent
-                      ? Icons.check_circle_rounded
-                      : Icons.message_rounded,
+                  vm.messageSent ? Icons.check_circle_outline : Icons.mail_outline,
                   size: 18,
                 ),
                 label: Text(
                   vm.messageSent ? 'Message Sent!' : 'Message Seller',
                 ),
-                style: FilledButton.styleFrom(
-                  backgroundColor: AppTheme.cardBg,
+                style: OutlinedButton.styleFrom(
                   foregroundColor: AppTheme.foreground,
                   side: BorderSide(color: AppTheme.foreground),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
                 ),
               ),
             ),
@@ -374,15 +420,16 @@ class _InfoSection extends StatelessWidget {
               child: OutlinedButton.icon(
                 onPressed: vm.toggleSaved,
                 icon: Icon(
-                  vm.saved
-                      ? Icons.favorite_rounded
-                      : Icons.favorite_border_rounded,
+                  vm.saved ? Icons.favorite : Icons.favorite_border_outlined,
                   size: 18,
                 ),
                 label: Text(vm.saved ? 'Saved' : 'Save Item'),
                 style: OutlinedButton.styleFrom(
                   foregroundColor: AppTheme.foreground,
                   side: BorderSide(color: AppTheme.foreground),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
                 ),
               ),
             ),
@@ -573,7 +620,7 @@ class _SimilarSection extends StatelessWidget {
                                   style: TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.bold,
-                                    color: AppTheme.accent,
+                                    color: AppTheme.sage,
                                   ),
                                 ),
                               ],

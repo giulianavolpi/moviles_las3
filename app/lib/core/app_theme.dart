@@ -12,8 +12,7 @@ class AppTheme {
   static const Color sage = Color(0xFFB5B682); // --dry-sage (primary CTA bg)
   static const Color sageDark = Color(0xFF2B2B2B); // --foreground / charcoal
   static const Color mustard = Color(0xFFD4A84B); // rating stars (not in tokens but used on web)
-  static const Color accent = Color(0xFFFEDC97); // --cta / soft-peach
-
+  static const Color accent = Color(0xFFB5B682); // --cta / dry-sage
   static const Color warmBeige = Color(0xFFFEDC97);
   static const Color cardBg = white;
   static const Color background = white;

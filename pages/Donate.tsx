@@ -113,7 +113,7 @@ export default function Donate() {
       <div className="bg-deep-green py-8 pt-24">
         <div className="container">
           <div className="flex items-center gap-2 mb-1">
-            <Badge className="bg-accent/20 text-accent border-accent/40 font-medium text-xs px-3 py-1">
+            <Badge className="bg-sage/20 text-sage border-sage/40 font-medium text-xs px-3 py-1">
               <Leaf className="h-3 w-3 mr-1 inline" /> Zero Waste
             </Badge>
           </div>
@@ -165,10 +165,10 @@ export default function Donate() {
                   setPhotoPreview("https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=400&h=400&fit=crop");
                   runAiTagging();
                 }}
-                className="w-full flex items-center gap-3 p-4 rounded-2xl border border-accent/40 bg-accent/10 active:bg-accent/20 transition-colors"
+                className="w-full flex items-center gap-3 p-4 rounded-2xl border border-sage/40 bg-sage/10 active:bg-sage/20 transition-colors"
               >
-                <div className="h-12 w-12 rounded-xl bg-accent/20 flex items-center justify-center flex-shrink-0">
-                  <Sparkles className="h-6 w-6 text-accent-foreground" />
+                <div className="h-12 w-12 rounded-xl bg-sage/20 flex items-center justify-center flex-shrink-0">
+                  <Sparkles className="h-6 w-6 text-sage-foreground" />
                 </div>
                 <div className="text-left">
                   <p className="text-sm font-semibold text-foreground">Try AI Demo</p>
@@ -192,13 +192,13 @@ export default function Donate() {
         {(aiLoading || aiDone) && (
           <div className="border rounded-xl p-4 bg-transparent">
             <div className="flex items-center gap-2 mb-3">
-              <Sparkles className={`h-5 w-5 ${aiDone ? "text-sage" : "text-accent animate-pulse"}`} />
+              <Sparkles className={`h-5 w-5 ${aiDone ? "text-sage" : "text-sage animate-pulse"}`} />
               <p className="font-semibold text-sm">
                 {aiLoading ? "AI is analyzing your photo..." : "AI tagging complete!"}
               </p>
             </div>
             {aiLoading && (
-              <Progress value={aiProgress} className="h-2 mb-3 [&>div]:bg-accent [&>div]:transition-all" />
+              <Progress value={aiProgress} className="h-2 mb-3 [&>div]:bg-sage [&>div]:transition-all" />
             )}
             {aiDone && (
               <div className="flex flex-wrap gap-2 mt-2">

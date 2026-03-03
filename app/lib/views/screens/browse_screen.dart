@@ -19,44 +19,60 @@ class BrowseScreen extends StatelessWidget {
           children: [
             Container(
               padding: const EdgeInsets.fromLTRB(16, 16, 16, 12),
-              color: AppTheme.deepGreen,
+              color: AppTheme.background,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Browse',
-                    style: Theme.of(context).textTheme.headlineMedium
-                            ?.copyWith(color: Colors.white) ??
-                        const TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Browse',
+                        style: Theme.of(context).textTheme.headlineMedium
+                                ?.copyWith(color: AppTheme.deepGreen) ??
+                            const TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold,
+                              color: AppTheme.deepGreen,
+                            ),
+                      ),
+                      Image.asset(
+                        'assets/images/uni_market_logo.png',
+                        height: 32,
+                        fit: BoxFit.contain,
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 12),
                   Consumer<BrowseViewModel>(
                     builder:
                         (context, vm, _) => Row(
                           children: [
+                            Icon(
+                              Icons.search_rounded,
+                              size: 22,
+                              color: AppTheme.mutedForeground,
+                            ),
+                            const SizedBox(width: 8),
                             Expanded(
                               child: TextField(
                                 onChanged: (v) => vm.search = v,
                                 decoration: InputDecoration(
                                   hintText: 'Search items...',
-                                  prefixIcon: const Icon(
-                                    Icons.search_rounded,
-                                    size: 20,
-                                    color: AppTheme.mutedForeground,
-                                  ),
                                   filled: true,
                                   fillColor: Colors.white,
                                   border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(12),
-                                    borderSide: BorderSide.none,
+                                    borderRadius: BorderRadius.circular(999),
+                                    borderSide: BorderSide(
+                                      color: AppTheme.gray.withValues(
+                                        alpha: 0.8,
+                                      ),
+                                    ),
                                   ),
                                   contentPadding: const EdgeInsets.symmetric(
-                                    horizontal: 14,
-                                    vertical: 12,
+                                    horizontal: 16,
+                                    vertical: 10,
                                   ),
                                 ),
                               ),
@@ -65,22 +81,28 @@ class BrowseScreen extends StatelessWidget {
                             IconButton(
                               onPressed: () => vm.aiSearch = !vm.aiSearch,
                               style: IconButton.styleFrom(
-                                backgroundColor:
-                                    vm.aiSearch
-                                        ? AppTheme.accent
-                                        : Colors.white24,
-                                foregroundColor:
-                                    vm.aiSearch
-                                        ? AppTheme.foreground
-                                        : Colors.white,
+                                backgroundColor: Colors.white,
+                                foregroundColor: AppTheme.deepGreen,
+                                side: BorderSide(
+                                  color: AppTheme.gray.withValues(alpha: 0.8),
+                                ),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(999),
+                                ),
                               ),
                               icon: const Icon(Icons.camera_alt_rounded),
                             ),
                             IconButton(
                               onPressed: () => vm.showFilters = true,
                               style: IconButton.styleFrom(
-                                backgroundColor: Colors.white24,
-                                foregroundColor: Colors.white,
+                                backgroundColor: Colors.white,
+                                foregroundColor: AppTheme.deepGreen,
+                                side: BorderSide(
+                                  color: AppTheme.gray.withValues(alpha: 0.8),
+                                ),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(999),
+                                ),
                               ),
                               icon: const Icon(Icons.tune_rounded),
                             ),
@@ -320,7 +342,7 @@ class _ListingCard extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
-                          color: AppTheme.accent,
+                          color: AppTheme.sage,
                         ),
                       ),
                       Row(
