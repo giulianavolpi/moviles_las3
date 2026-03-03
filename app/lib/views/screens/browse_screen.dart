@@ -19,21 +19,28 @@ class BrowseScreen extends StatelessWidget {
           children: [
             Container(
               padding: const EdgeInsets.fromLTRB(16, 16, 16, 12),
-              color: AppTheme.deepGreen,
+              color: AppTheme.background,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Browse',
-                    style:
-                        Theme.of(context).textTheme.headlineMedium?.copyWith(
-                          color: Colors.white,
-                        ) ??
-                        const TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Browse',
+                        style: Theme.of(context).textTheme.headlineMedium
+                                ?.copyWith(color: AppTheme.foreground) ??
+                            const TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold,
+                            ),
+                      ),
+                      Image.asset(
+                        'assets/images/uni_market_logo.png',
+                        height: 32,
+                        fit: BoxFit.contain,
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 12),
                   Consumer<BrowseViewModel>(

@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import { Star, Edit3, Trash2, Lock } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { IoStar, IoCreateOutline, IoTrashOutline, IoLockClosedOutline } from "react-icons/io5";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
@@ -43,6 +43,11 @@ const levels = [
 ];
 
 export default function Profile() {
+  const location = useLocation();
+  const [tab, setTab] = useState(location.search.includes("view=listings") ? "listings" : "activity");
+  useEffect(() => {
+    setTab(location.search.includes("view=listings") ? "listings" : "activity");
+  }, [location.search]);
   const xp = 680;
   const currentLevel = levels.filter((l) => xp >= l.minXp).pop()!;
   const nextLevel = levels.find((l) => l.minXp > xp);
@@ -64,110 +69,115 @@ export default function Profile() {
         </div>
       </div>
 
-      {/* User Info */}
-      <div className="bg-deep-green/50 py-6 border-b border-deep-green">
-        <div className="container flex items-center gap-4">
-          <Avatar className="h-16 w-16 border-2 border-accent flex-shrink-0">
-            <AvatarImage src="https://api.dicebear.com/7.x/avataaars/svg?seed=Alex" />
-            <AvatarFallback className="bg-sage text-primary-foreground text-sm font-bold">AL</AvatarFallback>
-          </Avatar>
-          <div className="flex-1">
-            <h2 className="text-xl font-bold text-primary-foreground">Alex López</h2>
-            <p className="text-primary-foreground/85 text-sm">UCM Madrid · Member since Sept 2024</p>
-            <div className="flex items-center gap-2 mt-2">
-              <Star className="h-4 w-4 fill-mustard text-mustard" />
-              <span className="text-primary-foreground font-semibold text-sm">4.8</span>
-              <span className="text-primary-foreground/80 text-xs">· 15 transactions</span>
-            </div>
-            <div className="mt-3">
-              <p className="text-accent font-bold text-lg">{xp.toLocaleString()} XP Points</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="container py-8 space-y-8">
-        {/* Eco Mascot (simple like Profile sections) */}
-        <div className="bg-deep-green/50 py-6">
-          <div className="container flex items-start gap-3">
-
-            {/* Image */}
-            <img
-              src={import.meta.env.BASE_URL + "llama.jpeg"}
-              alt="Eco mascot llama"
-              className="h-30 w-20 object-contain flex-shrink-0"
-            />
-
-            {/* Text */}
-            <div className="flex-1">
-              <h3 className="text-base font-bold text-primary-foreground">
-                Eco says:
-              </h3>
-              <p className="text-sm text-primary-black/85 mt-1">
-                You've sold <span className="font-semibold">3 items</span> this month.
-                You're just <span className="font-semibold">220 XP</span> away from
-                <span className="font-semibold"> Level 5 - Sustainability Star</span>. Keep it up to unlock new badges and rewards!
-              </p>
-            </div>
-
-          </div>
-        </div>
-
-        {/* Level Progress */}
-        <Card className="border-0 shadow-lg bg-white">
-          <CardContent className="p-4">
-            <div className="flex items-center justify-between mb-3">
-              <div>
-                <p className="text-xs text-black/70 font-semibold uppercase tracking-wide">Sustainability Level</p>
-                <p className="text-lg font-bold text-black">
-                  Level {currentLevel.level} – {currentLevel.name}
-                </p>
-              </div>
-              {nextLevel && (
-                <div className="text-right">
-                  <p className="text-xs text-black/70">Next up</p>
-                  <p className="text-sm font-semibold text-black">Level {nextLevel.level} · {nextLevel.name}</p>
-                  <p className="text-xs text-black/70">{nextLevel.minXp - xp} XP to go</p>
+      {tab !== "listings" && (
+        <>
+          {/* User Info */}
+          <div className="bg-deep-green/50 py-6 border-b border-deep-green">
+            <div className="container flex items-center gap-4">
+              <Avatar className="h-16 w-16 border-2 border-accent flex-shrink-0">
+                <AvatarImage src="https://api.dicebear.com/7.x/avataaars/svg?seed=Alex" />
+                <AvatarFallback className="bg-sage text-primary-foreground text-sm font-bold">AL</AvatarFallback>
+              </Avatar>
+              <div className="flex-1">
+                <h2 className="text-xl font-bold text-primary-foreground">Alex López</h2>
+                <p className="text-primary-foreground/85 text-sm">UCM Madrid · Member since Sept 2024</p>
+                <div className="flex items-center gap-2 mt-2">
+                  <IoStar className="h-4 w-4 fill-mustard text-mustard" />
+                  <span className="text-primary-foreground font-semibold text-sm">4.8</span>
+                  <span className="text-primary-foreground/80 text-xs">· 15 transactions</span>
                 </div>
-              )}
+                <div className="mt-3">
+                  <p className="text-accent font-bold text-lg">{xp.toLocaleString()} XP Points</p>
+                </div>
+              </div>
             </div>
-            <Progress value={progress} className="h-3 [&>div]:bg-primary-foreground [&>div]:transition-all" />
-            <div className="flex justify-between text-xs text-black/70 mt-1.5">
-              <span>{currentLevel.minXp} XP</span>
-              <span className="font-semibold text-black">{xp} XP</span>
-              <span>{nextLevel?.minXp ?? "MAX"} XP</span>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Badges */}
-        <section>
-          <h2 className="text-xl font-bold text-foreground mb-4">Badges & Rewards</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            {badges.map((badge) => (
-              <Card
-                key={badge.id}
-                className={`border-0 shadow-lg transition-all ${badge.earned ? "hover:shadow-lg" : "opacity-50"}`}
-              >
-                <CardContent className="p-4 text-center">
-                  <div className={`text-3xl mb-2 ${!badge.earned ? "grayscale" : ""}`}>
-                    {badge.earned ? badge.emoji : <span className="relative inline-block">{badge.emoji}<Lock className="absolute -bottom-1 -right-1 h-3 w-3 text-muted-foreground" /></span>}
-                  </div>
-                  <p className="text-xs font-semibold text-foreground">{badge.name}</p>
-                  <p className="text-[10px] text-muted-foreground mt-0.5">{badge.desc}</p>
-                  <Badge
-                    className={`mt-2 text-[10px] ${badge.earned ? "bg-accent/20 text-accent-foreground border-accent/30" : "bg-muted text-muted-foreground border-border"}`}
-                  >
-                    +{badge.xp} XP
-                  </Badge>
-                </CardContent>
-              </Card>
-            ))}
           </div>
-        </section>
+
+          <div className="container py-8 space-y-8">
+            {/* Eco Mascot (simple like Profile sections) */}
+            <div className="bg-deep-green/50 py-6">
+              <div className="container flex items-start gap-3">
+
+                {/* Image */}
+                <img
+                  src={import.meta.env.BASE_URL + "llama.jpeg"}
+                  alt="Eco mascot llama"
+                  className="h-30 w-20 object-contain flex-shrink-0"
+                />
+
+                {/* Text */}
+                <div className="flex-1">
+                  <h3 className="text-base font-bold text-primary-foreground">
+                    Eco says:
+                  </h3>
+                  <p className="text-sm text-primary-black/85 mt-1">
+                    You've sold <span className="font-semibold">3 items</span> this month.
+                    You're just <span className="font-semibold">220 XP</span> away from
+                    <span className="font-semibold"> Level 5 - Sustainability Star</span>. Keep it up to unlock new badges and rewards!
+                  </p>
+                </div>
+
+              </div>
+            </div>
+
+            {/* Level Progress */}
+            <Card className="border-0 shadow-lg bg-white">
+              <CardContent className="p-4">
+                <div className="flex items-center justify-between mb-3">
+                  <div>
+                    <p className="text-xs text-black/70 font-semibold uppercase tracking-wide">Sustainability Level</p>
+                    <p className="text-lg font-bold text-black">
+                      Level {currentLevel.level} – {currentLevel.name}
+                    </p>
+                  </div>
+                  {nextLevel && (
+                    <div className="text-right">
+                      <p className="text-xs text-black/70">Next up</p>
+                      <p className="text-sm font-semibold text-black">Level {nextLevel.level} · {nextLevel.name}</p>
+                      <p className="text-xs text-black/70">{nextLevel.minXp - xp} XP to go</p>
+                    </div>
+                  )}
+                </div>
+                <Progress value={progress} className="h-3 [&>div]:bg-primary-foreground [&>div]:transition-all" />
+                <div className="flex justify-between text-xs text-black/70 mt-1.5">
+                  <span>{currentLevel.minXp} XP</span>
+                  <span className="font-semibold text-black">{xp} XP</span>
+                  <span>{nextLevel?.minXp ?? "MAX"} XP</span>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Badges */}
+            <section>
+              <h2 className="text-xl font-bold text-foreground mb-4">Badges & Rewards</h2>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                {badges.map((badge) => (
+                  <Card
+                    key={badge.id}
+                    className={`border-0 shadow-lg transition-all ${badge.earned ? "hover:shadow-lg" : "opacity-50"}`}
+                  >
+                    <CardContent className="p-4 text-center">
+                      <div className={`text-3xl mb-2 ${!badge.earned ? "grayscale" : ""}`}>
+                        {badge.earned ? badge.emoji : <span className="relative inline-block">{badge.emoji}<IoLockClosedOutline className="absolute -bottom-1 -right-1 h-3 w-3 text-muted-foreground" /></span>}
+                      </div>
+                      <p className="text-xs font-semibold text-foreground">{badge.name}</p>
+                      <p className="text-[10px] text-muted-foreground mt-0.5">{badge.desc}</p>
+                      <Badge
+                        className={`mt-2 text-[10px] ${badge.earned ? "bg-accent/20 text-accent-foreground border-accent/30" : "bg-muted text-muted-foreground border-border"}`}
+                      >
+                        +{badge.xp} XP
+                      </Badge>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </section>
+          </div>
+        </>
+      )}
 
         {/* Tabs: Activity + My Listings */}
-        <Tabs defaultValue="activity">
+        <Tabs value={tab} onValueChange={setTab}>
           <TabsList className="bg-muted h-10">
             <TabsTrigger value="activity" className="data-[state=active]:bg-white data-[state=active]:text-primary-foreground">
               Activity Feed
@@ -213,7 +223,7 @@ export default function Profile() {
                     <div className="flex gap-2">
                       <Link to={`/item/${listing.id}`} className="flex-1">
                         <Button variant="outline" size="sm" className="w-full text-xs border-primary/30 text-primary hover:bg-primary hover:text-primary-foreground">
-                          <Edit3 className="h-3 w-3 mr-1" /> Edit
+                          <IoCreateOutline className="h-3 w-3 mr-1" /> Edit
                         </Button>
                       </Link>
                       <Button
@@ -222,7 +232,7 @@ export default function Profile() {
                         className="text-xs text-destructive hover:bg-destructive/10"
                         onClick={() => deleteListingItem(listing.id)}
                       >
-                        <Trash2 className="h-3 w-3" />
+                        <IoTrashOutline className="h-3 w-3" />
                       </Button>
                     </div>
                   </CardContent>
@@ -237,7 +247,6 @@ export default function Profile() {
             </div>
           </TabsContent>
         </Tabs>
-      </div>
     </main>
   );
 }

@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, Leaf, Users, Recycle, Star, Heart, ChevronRight, Zap } from "lucide-react";
+import { Leaf, Users, Recycle, Star, Heart, ChevronRight, Zap } from "lucide-react";
+import { IoArrowForward, IoGiftOutline, IoSwapHorizontalOutline } from "react-icons/io5";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
@@ -135,17 +136,34 @@ export default function Index() {
         </div>
 
         {/* Buttons */}
-        <div className="flex flex-col gap-4 w-full mt-6 mb-6">
+        <div className="flex flex-col gap-3 w-full mt-6 mb-6 px-2">
           <Link to="/browse" className="w-full">
-            <Button size="lg" className="w-full bg-sage text-sage-dark hover:bg-sage/90 font-semibold">
-              Browse Items <ArrowRight className="ml-2 h-4 w-4" />
+            <Button size="lg" className="w-full h-12 rounded-full bg-sage text-sage-dark hover:bg-sage/90 font-semibold flex items-center justify-center gap-3 px-4">
+              <span className="flex items-center justify-center bg-white/0 rounded-full">
+                <IoArrowForward className="h-5 w-5 transform rotate-180" />
+              </span>
+              <span className="text-sm">Browse Items</span>
             </Button>
           </Link>
           <Link to="/sell" className="w-full">
-            <Button size="lg" variant="outline" className="w-full border-primary-foreground/30 text-primary-foreground hover:bg-white/10 font-semibold">
-              Start Selling
+            <Button size="lg" variant="outline" className="w-full h-12 rounded-full border-primary-foreground/30 text-primary-foreground hover:bg-white/10 font-semibold flex items-center justify-center gap-3 px-4">
+              <span className="text-sm">Start Selling</span>
             </Button>
           </Link>
+          <div className="flex gap-3">
+            <Link to="/donate" className="flex-1">
+              <Button variant="outline" className="w-full h-12 rounded-full border-primary-foreground/30 text-primary-foreground hover:bg-white/10 font-semibold flex items-center justify-center gap-2 px-4">
+                <IoGiftOutline className="h-5 w-5" />
+                <span className="text-sm">Donate</span>
+              </Button>
+            </Link>
+            <Link to="/swap" className="flex-1">
+              <Button variant="outline" className="w-full h-12 rounded-full border-primary-foreground/30 text-primary-foreground hover:bg-white/10 font-semibold flex items-center justify-center gap-2 px-4">
+                <IoSwapHorizontalOutline className="h-5 w-5" />
+                <span className="text-sm">Swap</span>
+              </Button>
+            </Link>
+          </div>
         </div>
 
         {/* Featured Item Card */}

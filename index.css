@@ -1,0 +1,97 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* =========================
+       UniMarket Palette
+    ========================== */
+
+    --black:        0 0% 15%;      /* #262626 - Dark Gray */
+    --gray:         0 0% 75%;      /* #BFBFBF */
+    --white:   0 0% 100%;     /* White */
+    --sage-green:   147 15% 55%;   /* #7C9885 */
+    --dry-sage:     62 25% 61%;    /* #B5B682 */
+    --soft-peach:   41 96% 78%;    /* #FEDC97 */
+    --charcoal:     0 0% 17%;
+
+    /* =========================
+       Semantic Tokens
+    ========================== */
+
+    /* MAIN BACKGROUND */
+    --background: 0 0% 100%;     /* White */
+    --foreground: 0 0% 17%;      /* Charcoal (NEGRO) */
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 17%;
+
+    /* Brand */
+    --primary: 0 0% 0%;           /* Black */
+    --muted-teal: 147 15% 55%; /* Muted Teal */
+
+    /* Secondary */
+    --secondary: 0 0% 50%;
+    --secondary-foreground: 147 15% 55%;
+
+    /* Accent sections */
+    --accent: 62 25% 61%;         /* Dry Sage */
+    --accent-foreground: 0 0% 17%;
+
+    /* CTA */
+    --cta: 41 96% 78%;            /* Soft Peach */
+    --cta-foreground: 0 0% 17%;
+
+    --muted: 147 10% 48%;
+    --muted-foreground:   189 46% 28%;
+
+    --border: 147 10% 48%;
+    --input: 147 10% 48%;
+    --ring: 41 96% 78%;
+
+    --radius: 0.75rem;
+
+    --navbar-bg: 147 18% 50%;
+  }
+
+  .dark {
+    --background: 205 50% 15%;
+    --foreground: 0 0% 95%;
+  }
+
+  * { @apply border-border; }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Manrope', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', sans-serif;
+  }
+}
+
+@layer utilities {
+  .bg-black { background-color: hsl(var(--black-blue)); }
+  .text-black { color: hsl(var(--black-blue)); }
+
+  .bg-teal { background-color: hsl(var(--stormy-teal)); }
+
+  .bg-sage { background-color: hsl(var(--dry-sage)); }
+
+  .text-mustard { color: hsl(var(--mustard)); }
+  .bg-mustard { background-color: hsl(var(--mustard)); }
+}
+
+/* Smooth scrolling */
+html { scroll-behavior: smooth; }
+
+/* Hide scrollbar for horizontal scroll */
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Mobile safe area */
+.safe-area-bottom { padding-bottom: env(safe-area-inset-bottom); }

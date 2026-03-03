@@ -11,32 +11,81 @@ class MainShell extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: navigationShell,
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: navigationShell.currentIndex,
-        onTap: (index) => navigationShell.goBranch(index),
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: AppTheme.deepGreen,
-        selectedItemColor: AppTheme.sage,
-        unselectedItemColor: Colors.white70,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_rounded),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.grid_view_rounded),
-            label: 'Browse',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.add_circle_outline_rounded),
-            label: 'Sell',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person_rounded),
-            label: 'Profile',
-          ),
-        ],
+      backgroundColor: AppTheme.background,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: AppTheme.sage,
+        foregroundColor: AppTheme.sageDark,
+        elevation: 0,
+        shape: const CircleBorder(),
+        onPressed: () => navigationShell.goBranch(2),
+        child: const Icon(Icons.add_rounded, size: 28),
       ),
+      bottomNavigationBar: BottomAppBar(
+        color: Colors.white,
+        elevation: 4,
+        shape: const CircularNotchedRectangle(),
+        notchMargin: 8,
+        child: SizedBox(
+          height: 64,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              _NavIcon(
+                icon: Icons.home_rounded,
+                index: 0,
+                currentIndex: navigationShell.currentIndex,
+                onTap: () => navigationShell.goBranch(0),
+              ),
+              _NavIcon(
+                icon: Icons.grid_view_rounded,
+                index: 1,
+                currentIndex: navigationShell.currentIndex,
+                onTap: () => navigationShell.goBranch(1),
+              ),
+              const SizedBox(width: 48), // space under the center FAB
+              _NavIcon(
+                icon: Icons.list_rounded,
+                index: 3,
+                currentIndex: navigationShell.currentIndex,
+                onTap: () => navigationShell.goBranch(3),
+              ),
+              _NavIcon(
+                icon: Icons.person_rounded,
+                index: 3,
+                currentIndex: navigationShell.currentIndex,
+                onTap: () => navigationShell.goBranch(3),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _NavIcon extends StatelessWidget {
+  final IconData icon;
+  final int index;
+  final int currentIndex;
+  final VoidCallback onTap;
+
+  const _NavIcon({
+    required this.icon,
+    required this.index,
+    required this.currentIndex,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final bool selected = index == currentIndex;
+    final Color color =
+        selected ? AppTheme.foreground : AppTheme.mutedForeground;
+    return IconButton(
+      onPressed: onTap,
+      icon: Icon(icon, color: color),
+      splashRadius: 24,
     );
   }
 }

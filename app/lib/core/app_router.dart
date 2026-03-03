@@ -6,6 +6,8 @@ import '../views/screens/item_detail_screen.dart';
 import '../views/screens/sell_screen.dart';
 import '../views/screens/profile_screen.dart';
 import '../views/screens/not_found_screen.dart';
+import '../views/screens/swap_screen.dart';
+import '../views/screens/donate_screen.dart';
 import '../views/widgets/main_shell.dart';
 import '../view_models/item_detail_view_model.dart';
 import 'package:provider/provider.dart';
@@ -19,18 +21,16 @@ GoRouter createAppRouter() {
     errorBuilder: (_, __) => const NotFoundScreen(),
     routes: [
       StatefulShellRoute.indexedStack(
-        builder:
-            (context, state, navigationShell) =>
-                MainShell(navigationShell: navigationShell),
+        builder: (context, state, navigationShell) =>
+            MainShell(navigationShell: navigationShell),
         branches: [
           StatefulShellBranch(
             navigatorKey: GlobalKey<NavigatorState>(),
             routes: [
               GoRoute(
                 path: '/',
-                pageBuilder:
-                    (context, state) =>
-                        const NoTransitionPage(child: HomeScreen()),
+                pageBuilder: (context, state) =>
+                    const NoTransitionPage(child: HomeScreen()),
               ),
             ],
           ),
@@ -39,9 +39,8 @@ GoRouter createAppRouter() {
             routes: [
               GoRoute(
                 path: '/browse',
-                pageBuilder:
-                    (context, state) =>
-                        const NoTransitionPage(child: BrowseScreen()),
+                pageBuilder: (context, state) =>
+                    const NoTransitionPage(child: BrowseScreen()),
               ),
             ],
           ),
@@ -50,9 +49,8 @@ GoRouter createAppRouter() {
             routes: [
               GoRoute(
                 path: '/sell',
-                pageBuilder:
-                    (context, state) =>
-                        const NoTransitionPage(child: SellScreen()),
+                pageBuilder: (context, state) =>
+                    const NoTransitionPage(child: SellScreen()),
               ),
             ],
           ),
@@ -61,9 +59,8 @@ GoRouter createAppRouter() {
             routes: [
               GoRoute(
                 path: '/profile',
-                pageBuilder:
-                    (context, state) =>
-                        const NoTransitionPage(child: ProfileScreen()),
+                pageBuilder: (context, state) =>
+                    const NoTransitionPage(child: ProfileScreen()),
               ),
             ],
           ),
@@ -79,6 +76,16 @@ GoRouter createAppRouter() {
             child: const ItemDetailScreen(),
           );
         },
+      ),
+      GoRoute(
+        path: '/swap',
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => const SwapScreen(),
+      ),
+      GoRoute(
+        path: '/donate',
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => const DonateScreen(),
       ),
     ],
   );

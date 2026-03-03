@@ -112,6 +112,30 @@ class HomeScreen extends StatelessWidget {
                           child: const Text('Start Selling'),
                         ),
                       ),
+                      const SizedBox(height: 10),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: OutlinedButton(
+                              onPressed: () => context.go('/donate'),
+                              style: OutlinedButton.styleFrom(
+                                foregroundColor: Colors.white,
+                              ),
+                              child: const Text('Donate'),
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: OutlinedButton(
+                              onPressed: () => context.go('/swap'),
+                              style: OutlinedButton.styleFrom(
+                                foregroundColor: Colors.white,
+                              ),
+                              child: const Text('Swap'),
+                            ),
+                          ),
+                        ],
+                      ),
                       const SizedBox(height: 20),
                       _FeaturedCard(listings: featured, vm: vm),
                     ],
@@ -127,13 +151,22 @@ class HomeScreen extends StatelessWidget {
                         height: 56,
                         width: 56,
                         decoration: BoxDecoration(
-                          color: AppTheme.sage.withValues(alpha: 0.3),
-                          borderRadius: BorderRadius.circular(12),
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(16),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withValues(alpha: 0.04),
+                              blurRadius: 6,
+                              offset: const Offset(0, 2),
+                            ),
+                          ],
                         ),
-                        child: const Icon(
-                          Icons.eco_rounded,
-                          size: 32,
-                          color: AppTheme.sageDark,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(16),
+                          child: Image.asset(
+                            'assets/images/eco_llama.jpeg',
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                       const SizedBox(width: 12),

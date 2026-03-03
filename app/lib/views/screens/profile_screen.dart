@@ -131,13 +131,33 @@ class ProfileScreen extends StatelessWidget {
                 margin: const EdgeInsets.all(16),
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: AppTheme.deepGreen.withValues(alpha: 0.5),
-                  borderRadius: BorderRadius.circular(12),
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(16),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.04),
+                      blurRadius: 10,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
                 ),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Icon(Icons.eco_rounded, size: 40, color: AppTheme.sage),
+                    Container(
+                      height: 64,
+                      width: 64,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(16),
+                        child: Image.asset(
+                          'assets/images/eco_llama.jpeg',
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
                     const SizedBox(width: 12),
                     Expanded(
                       child: Column(
@@ -148,7 +168,7 @@ class ProfileScreen extends StatelessWidget {
                             style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
-                              color: Colors.white,
+                              color: AppTheme.foreground,
                             ),
                           ),
                           const SizedBox(height: 4),
@@ -156,7 +176,7 @@ class ProfileScreen extends StatelessWidget {
                             "You've sold 3 items this month. You're just 220 XP away from Level 5 - Sustainability Star. Keep it up to unlock new badges and rewards!",
                             style: TextStyle(
                               fontSize: 13,
-                              color: Colors.white70,
+                              color: AppTheme.mutedForeground,
                               height: 1.4,
                             ),
                           ),
