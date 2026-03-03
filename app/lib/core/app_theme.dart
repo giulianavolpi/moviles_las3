@@ -25,72 +25,82 @@ class AppTheme {
   static const Color destructive = Color(0xFFDC2626);
 
   static ThemeData get theme => ThemeData(
-    useMaterial3: true,
-    colorScheme: ColorScheme.light(
-      primary: black,
-      onPrimary: white,
-      secondary: sage,
-      onSecondary: sageDark,
-      surface: cardBg,
-      onSurface: foreground,
-      error: destructive,
-      onError: white,
-    ),
-    scaffoldBackgroundColor: background,
-    appBarTheme: const AppBarTheme(
-      backgroundColor: deepGreen,
-      foregroundColor: white,
-      elevation: 0,
-    ),
-    cardTheme: CardTheme(
-      color: cardBg,
-      elevation: 2,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-    ),
-    elevatedButtonTheme: ElevatedButtonThemeData(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: sage,
-        foregroundColor: sageDark,
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      ),
-    ),
-    outlinedButtonTheme: OutlinedButtonThemeData(
-      style: OutlinedButton.styleFrom(
-        foregroundColor: white,
-        side: const BorderSide(color: Colors.white54),
-      ),
-    ),
-    inputDecorationTheme: InputDecorationTheme(
-      filled: true,
-      fillColor: Colors.white,
-      border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-    ),
-    textTheme: const TextTheme(
-      headlineLarge: TextStyle(
-        fontSize: 28,
-        fontWeight: FontWeight.w800,
-        color: white,
-      ),
-      headlineMedium: TextStyle(
-        fontSize: 22,
-        fontWeight: FontWeight.bold,
-        color: foreground,
-      ),
-      titleLarge: TextStyle(
-        fontSize: 18,
-        fontWeight: FontWeight.w600,
-        color: foreground,
-      ),
-      bodyMedium: TextStyle(
-        fontSize: 14,
-        color: foreground,
-      ),
-      bodySmall: TextStyle(
-        fontSize: 12,
-        color: mutedForeground,
-      ),
-    ),
-  );
+        useMaterial3: true,
+        fontFamily: 'Manrope',
+        colorScheme: ColorScheme.light(
+          primary: black,
+          onPrimary: white,
+          secondary: sage,
+          onSecondary: sageDark,
+          surface: cardBg,
+          onSurface: foreground,
+          error: destructive,
+          onError: white,
+        ),
+        scaffoldBackgroundColor: background,
+        appBarTheme: const AppBarTheme(
+          backgroundColor: deepGreen,
+          foregroundColor: white,
+          elevation: 0,
+        ),
+        cardTheme: CardTheme(
+          color: cardBg,
+          elevation: 2,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: sage,
+            foregroundColor: sageDark,
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12)),
+          ),
+        ),
+        outlinedButtonTheme: OutlinedButtonThemeData(
+          style: OutlinedButton.styleFrom(
+            foregroundColor: white,
+            side: const BorderSide(color: Colors.white54),
+          ),
+        ),
+        inputDecorationTheme: InputDecorationTheme(
+          filled: true,
+          fillColor: Colors.white,
+          border:
+              OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        ),
+        textTheme: const TextTheme(
+          headlineLarge: TextStyle(
+            fontFamily: 'Poppins',
+            fontSize: 28,
+            fontWeight: FontWeight.w800,
+            color: white,
+          ),
+          headlineMedium: TextStyle(
+            fontFamily: 'Poppins',
+            fontSize: 22,
+            fontWeight: FontWeight.w700,
+            color: foreground,
+          ),
+          titleLarge: TextStyle(
+            fontFamily: 'Poppins',
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
+            color: foreground,
+          ),
+          bodyMedium: TextStyle(
+            fontFamily: 'Manrope',
+            fontSize: 14,
+            color: foreground,
+          ),
+          bodySmall: TextStyle(
+            fontFamily: 'Manrope',
+            fontSize: 12,
+            color: mutedForeground,
+          ),
+        ),
+      );
 }
