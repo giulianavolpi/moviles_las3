@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 /// UniMarket brand colors matching the web app index.css palette.
 class AppTheme {
@@ -25,7 +26,6 @@ class AppTheme {
 
   static ThemeData get theme => ThemeData(
         useMaterial3: true,
-        fontFamily: 'Manrope',
         colorScheme: ColorScheme.light(
           primary: black,
           onPrimary: white,
@@ -71,34 +71,54 @@ class AppTheme {
           contentPadding:
               const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
         ),
-        textTheme: const TextTheme(
-          headlineLarge: TextStyle(
-            fontFamily: 'Poppins',
+        textTheme: GoogleFonts.manropeTextTheme(
+          ThemeData.light().textTheme,
+        ).copyWith(
+          // Override headings with Poppins
+          displayLarge: GoogleFonts.poppins(
+            fontSize: 57,
+            fontWeight: FontWeight.w400,
+            color: foreground,
+          ),
+          displayMedium: GoogleFonts.poppins(
+            fontSize: 45,
+            fontWeight: FontWeight.w400,
+            color: foreground,
+          ),
+          displaySmall: GoogleFonts.poppins(
+            fontSize: 36,
+            fontWeight: FontWeight.w400,
+            color: foreground,
+          ),
+          headlineLarge: GoogleFonts.poppins(
             fontSize: 28,
             fontWeight: FontWeight.w800,
-            color: white,
+            color: foreground,
           ),
-          headlineMedium: TextStyle(
-            fontFamily: 'Poppins',
+          headlineMedium: GoogleFonts.poppins(
             fontSize: 22,
             fontWeight: FontWeight.w700,
             color: foreground,
           ),
-          titleLarge: TextStyle(
-            fontFamily: 'Poppins',
+          headlineSmall: GoogleFonts.poppins(
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+            color: foreground,
+          ),
+          titleLarge: GoogleFonts.poppins(
             fontSize: 18,
             fontWeight: FontWeight.w600,
             color: foreground,
           ),
-          bodyMedium: TextStyle(
-            fontFamily: 'Manrope',
-            fontSize: 14,
+          titleMedium: GoogleFonts.poppins(
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
             color: foreground,
           ),
-          bodySmall: TextStyle(
-            fontFamily: 'Manrope',
-            fontSize: 12,
-            color: mutedForeground,
+          titleSmall: GoogleFonts.poppins(
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+            color: foreground,
           ),
         ),
       );
